@@ -1,0 +1,58 @@
+section {
+    display: flex;
+    margin: 0 auto;
+    max-width: 768px;
+    flex-direction: column;
+}
+
+.banner {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    z-index: 1;
+}
+
+.text-block {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+    color: lightgrey;
+}
+
+.positionFixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 768px;
+}
+
+.positionRelative {
+    position: relative;
+}
+
+#btn-enable {
+    position: fixed;
+    bottom: 2%;
+    left: 2%;
+}
+
+#btn-disable {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+}
+
+button {
+    background-color: lightgrey;
+    border: none;
+    color: black;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}

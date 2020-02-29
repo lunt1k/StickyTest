@@ -1,4 +1,4 @@
-(function() {
+(function () {
     const bannersArray = Array.from(document.querySelectorAll('.banner'));
     const buttonEnable = document.getElementById('btn-enable');
     const buttonDisable = document.getElementById('btn-disable');
@@ -18,8 +18,8 @@
         bannersArray[i].style.backgroundColor = 'grey';
     }
 
-    let bannerChanger = function() {
-        for (let i = 0; i < bannersTopPosition.length; i++){
+    let bannerChanger = function () {
+        for (let i = 0; i < bannersTopPosition.length; i++) {
             if (window.scrollY >= bannersTopPosition[i]) {
                 textBlockArray[i].style.paddingTop = bannersArray[i].offsetHeight + 15 + 'px';
                 bannersArray[i].classList.add('positionFixed');
@@ -31,24 +31,27 @@
     }
 
     function removeAllBanners() {
-        for (let i = 0; i < bannersTopPosition.length; i++){
+        for (let i = 0; i < bannersTopPosition.length; i++) {
             textBlockArray[i].style.paddingTop = '15px';
             bannersArray[i].classList.remove('positionFixed');
         }
     }
-    
-    window.addEventListener('resize', function(){
+
+    let initialize = function () {
+        document.addEventListener('scroll', bannerChanger);
+        bannerChanger();
+    }
+
+    let disable = function () {
+        document.removeEventListener('scroll', bannerChanger);
+        removeAllBanners();
+    }
+
+    window.addEventListener('resize', function () {
         removeAllBanners();
         recalculateNannersPosition();
     });
-    
-    buttonEnable.addEventListener('click', function() {
-        document.addEventListener('scroll', bannerChanger);
-        bannerChanger();
-    })
-    
-    buttonDisable.addEventListener('click', function() {
-        document.removeEventListener('scroll', bannerChanger);
-        removeAllBanners();
-    })
+
+    buttonEnable.addEventListener('click', initialize);
+    buttonDisable.addEventListener('click', disable);
 })();

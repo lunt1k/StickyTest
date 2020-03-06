@@ -37,21 +37,44 @@
         }
     }
 
+    function debounce(func, ms) {
+        let isCooldown = false;
+        
+        return function() {
+            if (isCooldown) return;
+
+            func.apply(this, arguments);
+            isCooldown = true;
+            setTimeout(() => isCooldown = false, ms);
+        };
+        
+    }
+
+    // let initialize = function () {
+    //     document.addEventListener('scroll', bannerChanger);
+    //     bannerChanger();
+    // }
+
+    let debouncedBannerChanger = debounce(bannerChanger, 100); 
+
     let initialize = function () {
-        document.addEventListener('scroll', bannerChanger);
-        bannerChanger();
+        document.addEventListener('scroll', debouncedBannerChanger);
     }
 
     let disable = function () {
-        document.removeEventListener('scroll', bannerChanger);
+        document.removeEventListener('scroll', debouncedBannerChanger);
         removeAllBanners();
     }
 
-    window.addEventListener('resize', function () {
-        removeAllBanners();
-        recalculateNannersPosition();
-    });
+    window.addEventListener('resize', debounce(removeAllBanners, 100))
+    window.addEventListener('resize', debounce(recalculateNannersPosition, 100));
+    // window.addEventListener('resize', function () {
+    //     removeAllBanners();
+    //     recalculateNannersPosition();
+    // });
 
     buttonEnable.addEventListener('click', initialize);
     buttonDisable.addEventListener('click', disable);
+    
 })();
+
